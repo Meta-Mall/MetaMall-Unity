@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: bcf3bd0d7d8467c419ea34b0be3455d4
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: dda12f74ff9116a42b23482252b2c482, type: 3}
+  _instancesCopy:
+  - {fileID: 11400000, guid: 2b8b7a06c5c4e5e4bb99a52caab54e21, type: 2}
+  _fileAsset: {instanceID: 0}
+  _assetPath: Assets/Substance Material/brick-plaster-wall-001.sbsar

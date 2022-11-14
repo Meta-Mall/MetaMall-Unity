@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 7f62869107a18ae4eaf1f899b44561b2
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: dda12f74ff9116a42b23482252b2c482, type: 3}
+  _instancesCopy:
+  - {fileID: 11400000, guid: ceef79d4c03208a4fbd169670521c5cf, type: 2}
+  _fileAsset: {instanceID: 0}
+  _assetPath: Assets/Substance Material/double_t_pavement.sbsar
