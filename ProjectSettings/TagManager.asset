@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - CinemachineTarget
+  - ProductViewCamera
+  - PlayerCam
   layers:
   - Default
   - TransparentFX
