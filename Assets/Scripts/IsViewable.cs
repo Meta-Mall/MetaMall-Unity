@@ -1,5 +1,4 @@
 using Cinemachine;
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,12 +6,16 @@ public class IsViewable : MonoBehaviour, ILookReceiver {
 
 	bool viewMode = false;
 	bool isLookedAt = false;
-
-	Vector3 initialSwipePos;
+	bool isSwiping = false;
+	Vector3 mousePos;
 
 	GameObject player = null;
 	GameObject playerCam = null;
 	GameObject viewableCam = null;
+
+	public float swipeSensivity = 2;
+	public Vector3 idleRotationSpeed = new Vector3(0, 2, 0);
+
 
 	// Start is called before the first frame update
 	void Start() {
@@ -25,27 +28,47 @@ public class IsViewable : MonoBehaviour, ILookReceiver {
 
 	// Update is called once per frame
 	void Update() {
-		if(isLookedAt) {
-			if (!viewMode && Keyboard.current[Key.Space].isPressed) {
-				EnableViewMode();	
+
+		if (isLookedAt) {
+			if (!viewMode && Keyboard.current[Key.E].isPressed) {
+				EnableViewMode();
 			}
 		}
 
-		if(viewMode) {
-			////InputSystem.Mouse
-			//if(Input.GetMouseButtonDown(0)) {
-			//	initialSwipePos = Input.mousePosition;
-			//}
-			//else if (Input.GetMouseButton(0)) {
-			//	Vector3 deltaPos = initialSwipePos - Input.mousePosition;
-			//	transform.rotation *= Quaternion.Euler(deltaPos);
-
-			//}
+		if (viewMode) {
+			Cursor.visible = true;
+			Cursor.lockState= CursorLockMode.None;
 			
-			transform.Rotate(0, 3, 0);
+			if (Input.GetMouseButtonDown(0)) {
+				mousePos = Input.mousePosition;
+				isSwiping = true;
+			}
+			else if (Input.GetMouseButton(0)) {
+				Vector3 deltaMouse = (mousePos - Input.mousePosition) * swipeSensivity;
+				Vector3 currentAngle = transform.eulerAngles;
+				transform.eulerAngles = new Vector3(currentAngle.x, currentAngle.y + deltaMouse.x, currentAngle.z + deltaMouse.y);
+				
+				mousePos = Input.mousePosition;
+			}
+			else if (Input.GetMouseButtonUp(0)) {
+				isSwiping = false;
+			}
+
+			if (!isSwiping) {
+				transform.eulerAngles += idleRotationSpeed;
+				transform.eulerAngles = new Vector3(
+					Mathf.LerpAngle(transform.eulerAngles.x, 0, 0.1f),
+					transform.eulerAngles.y,
+					Mathf.LerpAngle(transform.eulerAngles.z, 0, 0.1f)
+				);
+			}
+
+
 			if (Keyboard.current[Key.Escape].isPressed) {
 				DisableViewMode();
 			}
+
+			
 		}
 	}
 
@@ -65,7 +88,7 @@ public class IsViewable : MonoBehaviour, ILookReceiver {
 	}
 
 	void DisableViewMode() {
-		
+
 		viewMode = false;
 
 		player.GetComponent<PlayerInput>().enabled = true;
