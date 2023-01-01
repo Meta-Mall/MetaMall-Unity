@@ -36,8 +36,6 @@ public class IsViewable : MonoBehaviour, ILookReceiver {
 		}
 
 		if (viewMode) {
-			Cursor.visible = true;
-			Cursor.lockState= CursorLockMode.None;
 			
 			if (Input.GetMouseButtonDown(0)) {
 				mousePos = Input.mousePosition;
@@ -75,6 +73,9 @@ public class IsViewable : MonoBehaviour, ILookReceiver {
 	void EnableViewMode() {
 
 		viewMode = true;
+		
+		Cursor.visible = true;
+		Cursor.lockState = CursorLockMode.None;
 
 		playerCam.GetComponent<CinemachineVirtualCamera>().enabled = false;
 		player.GetComponent<PlayerInput>().enabled = false;
@@ -90,6 +91,9 @@ public class IsViewable : MonoBehaviour, ILookReceiver {
 	void DisableViewMode() {
 
 		viewMode = false;
+		
+		Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.Locked;
 
 		player.GetComponent<PlayerInput>().enabled = true;
 
