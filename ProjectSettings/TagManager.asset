@@ -7,6 +7,7 @@ TagManager:
   - CinemachineTarget
   - ProductViewCamera
   - PlayerCam
+  - UI
   layers:
   - Default
   - TransparentFX

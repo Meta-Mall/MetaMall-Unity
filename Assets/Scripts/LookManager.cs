@@ -4,12 +4,14 @@ public class LookManager : MonoBehaviour {
 
 	public GameObject ViewPoint;
 	public float distance = 0.1f;
-	public GameObject lastLooked;
+	GameObject lastLooked;
 
 	void Update() {
 		if (lastLooked) {
 			lastLooked.SendMessage("NotLookingAt", SendMessageOptions.DontRequireReceiver);
 			lastLooked = null;
+
+			UIManager.Instance.HideTooltip();
 		}
 
 		GameObject closest = null;
@@ -27,6 +29,8 @@ public class LookManager : MonoBehaviour {
 		if (!closest.CompareTag("Player")) {
 			closest.SendMessage("LookingAt", SendMessageOptions.DontRequireReceiver);
 			lastLooked = closest;
+
+			UIManager.Instance.ShowTooltip("Press E", closest);
 		}
 
 		//Ray gazeRay = new(ViewPoint.transform.position, ViewPoint.transform.rotation * Vector3.forward);
