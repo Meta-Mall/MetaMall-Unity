@@ -19,8 +19,6 @@ public class IsViewable : MonoBehaviour, ILookReceiver {
 
 	// Start is called before the first frame update
 	void Start() {
-		Debug.Log("Lallu");
-
 		player = GameObject.FindGameObjectWithTag("Player");
 		playerCam = GameObject.FindGameObjectWithTag("PlayerCam");
 		viewableCam = GameObject.FindGameObjectWithTag("ProductViewCamera");

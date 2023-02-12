@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -16,7 +14,15 @@ public class UIManager : MonoBehaviour {
     }
 
 
+
+
+    // GLOBAL VARIABLES FOR UI SETTINGS
     public GameObject tooltip;
+    public GameObject MainCamera;
+    public GameObject minimapFollowTarget;
+    public bool minimapRotate = true;
+    public float minimapHeight = 10f;
+
 
     public void ShowTooltip(string text, GameObject showAbove) {
         tooltip.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().SetText(text);
@@ -26,9 +32,5 @@ public class UIManager : MonoBehaviour {
     public void HideTooltip() {
         tooltip.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().SetText("");
         tooltip.transform.position = new Vector3(-100, -100, -100);
-    }
-
-    void Start() {
-        
     }
 }
