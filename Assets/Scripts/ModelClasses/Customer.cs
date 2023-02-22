@@ -1,19 +1,19 @@
 
-public class Customer
-{
-    public string userName;
-    public string email;
-    public string password;
-    public string country;
-    public string city;
-    public string gender;
+public class Customer : User {
 
-    public Customer(string userName, string email, string password, string country, string city, string gender) {
-        this.userName = userName;
-        this.email = email;
-        this.password = password;
-        this.country = country;
-        this.city = city;
-        this.gender = gender;
-    }
+	public string userName;
+	public string email;
+	public string password;
+	public string country;
+	public string city;
+	public string gender;
+
+	public Customer(string userName, string email, string password, string country, string city, string gender) {
+		this.userName = userName;
+		this.email = email;
+		this.password = password;
+		this.country = country;
+		this.city = city;
+		this.gender = gender;
+	}
 }
