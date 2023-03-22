@@ -1,4 +1,6 @@
+using System;
 
+[Serializable]
 public class Customer : User {
 
 	public string userName;
@@ -7,6 +9,14 @@ public class Customer : User {
 	public string country;
 	public string city;
 	public string gender;
+	public string photoURL;
+
+	bool isGuest = false;
+
+	public Customer() { 
+		isGuest = true;
+		userName = "Guest";
+	}
 
 	public Customer(string userName, string email, string password, string country, string city, string gender) {
 		this.userName = userName;
