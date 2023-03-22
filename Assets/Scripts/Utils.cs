@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
+using Cysharp.Threading.Tasks;
 
 public static class Utils {
 	
@@ -73,4 +75,13 @@ public static class Utils {
 		transform.position = targetPosition;
 	}
 
+	public static Sprite CreateSprite(Texture2D tex) {
+		return Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
+	}
+
+	public static async UniTask<Texture2D> GetTextureFromURL(string url) {
+		using UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(url);
+		await uwr.SendWebRequest();
+		return DownloadHandlerTexture.GetContent(uwr);
+	}
 }
