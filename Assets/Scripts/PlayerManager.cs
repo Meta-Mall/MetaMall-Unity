@@ -1,10 +1,13 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using System.Runtime.InteropServices;
 
 public class PlayerManager : MonoBehaviour {
 
+	[DllImport("__Internal")]
+	private static extern void EmitJSEvent(string eventName, string arg1, string arg2, string arg3);
+	
 	struct loginInfo {
 		public string userJSON;
 		public string type;
@@ -21,17 +24,12 @@ public class PlayerManager : MonoBehaviour {
 		set {
 			user = value;
 			if(user is Customer customer) {
-				Debug.Log("is cust");
 				playerAlias.GetComponent<TextMeshProUGUI>().text = customer.userName;
 				SetAvatar(customer.photoURL);
 			}
 			else if (user is Vendor vendor) {
-				Debug.Log("is vend");
 				playerAlias.GetComponent<TextMeshProUGUI>().text = vendor.Address;
 				playerAvatar.GetComponent<Image>().sprite = guestAvatar;
-			}
-			else {
-				Debug.Log("is nothing");
 			}
 		}
 	}
@@ -42,15 +40,17 @@ public class PlayerManager : MonoBehaviour {
 		playerAlias = playerHUD.Find("PlayerAlias").gameObject;
 		User = new Customer();
 
-		SetAvatar("https://e7.pngegg.com/pngimages/799/987/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png");
+#if UNITY_WEBGL == true && UNITY_EDITOR == false
+		EmitJSEvent("PrintSomething", "hello", "lallu", null);
+#endif
 	}
 
 
 	public void UserLoggedIn(string loginInfoJSON) {
-		Debug.Log(loginInfoJSON);
 		loginInfo info = JsonUtility.FromJson<loginInfo>(loginInfoJSON);
 		if (info.type == "customer") {
 			User = JsonUtility.FromJson<Customer>(info.userJSON);
+			
 		}
 		else {
 			User = JsonUtility.FromJson<Vendor>(info.userJSON);
