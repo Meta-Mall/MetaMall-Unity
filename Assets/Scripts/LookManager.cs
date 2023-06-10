@@ -27,6 +27,7 @@ public class LookManager : MonoBehaviour {
 		}
 
 		if (closest != null && !closest.CompareTag("Player")) {
+			//find parent while receiver not found
 			closest.SendMessage("LookingAt", SendMessageOptions.DontRequireReceiver);
 			lastLooked = closest;
 

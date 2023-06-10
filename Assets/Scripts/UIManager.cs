@@ -17,7 +17,9 @@ public class UIManager : MonoBehaviour {
 
 
     // GLOBAL VARIABLES FOR UI SETTINGS
-    public GameObject tooltip;
+    public GameObject HUD;
+    public GameObject CharacterCustomizeHUD;
+	public GameObject tooltip;
     public GameObject MainCamera;
     public GameObject minimapFollowTarget;
     public bool minimapRotate = true;
@@ -33,4 +35,12 @@ public class UIManager : MonoBehaviour {
         tooltip.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().SetText("");
         tooltip.transform.position = new Vector3(-100, -100, -100);
     }
+
+    public void HideHUD() { HUD.SetActive(false); }
+	
+    public void ShowHUD() { HUD.SetActive(true); }
+
+    public void ShowCharacterCustomization() { CharacterCustomizeHUD.SetActive(true); }
+
+    public void HideCharacterCustomization() { CharacterCustomizeHUD.SetActive(false); }
 }
