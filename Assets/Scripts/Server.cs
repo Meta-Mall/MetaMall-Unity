@@ -33,7 +33,7 @@ public class Server : MonoBehaviour {
         Customer customer = new(userName, email, password, country, city, gender);
         string obj = JsonUtility.ToJson(customer);
 
-        using UnityWebRequest www = UnityWebRequest.Post("http://localhost:4000/customer/add", obj);
+        using UnityWebRequest www = UnityWebRequest.PostWwwForm("http://localhost:4000/customer/add", obj);
         www.SetRequestHeader("content-type", "application/json");
         www.uploadHandler.contentType = "application/json";
         www.uploadHandler = new UploadHandlerRaw(System.Text.Encoding.UTF8.GetBytes(obj));

@@ -47,6 +47,9 @@ public class PlayerCustomization : MonoBehaviour {
 		else if (Keyboard.current[Key.LeftArrow].wasPressedThisFrame || Keyboard.current[Key.A].wasPressedThisFrame) {
 			Selected = (Selected + characters.Length - 1) % characters.Length;
 		}
+
+		Cursor.visible = true;
+		Cursor.lockState = CursorLockMode.Confined;
 	}
 
 	public void SelectCharacterByIndex(int i) {

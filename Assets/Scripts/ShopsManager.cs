@@ -1,11 +1,18 @@
 using Dummiesman;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class ShopsManager : MonoBehaviour {
+
+	public GameObject[] floors;
+
+	[DllImport("__Internal")]
+	private static extern void EmitJSEvent(string eventName, string arg1, string arg2, string arg3);
+
 	struct productModel {
 		string name;
 		string price;
@@ -17,62 +24,27 @@ public class ShopsManager : MonoBehaviour {
 	}
 
 	void Start() {
-		getAllProducts();
+#if UNITY_WEBGL == true && UNITY_EDITOR == false
+		EmitJSEvent("RequestStores", null, null, null);
+#endif
 	}
 
-	void Update() {
-
+	public void ReceiveFloor0(string data) {
+		ReceiveStores(data, 0);
 	}
 
-	async Task<string> FetchData(string uri) {
+	public void ReceiveFloor1(string data) {
+		ReceiveStores(data, 1);
+	}
 
-		UnityWebRequest webRequest = UnityWebRequest.Get(uri);
-		await webRequest.SendWebRequest();
+	public void ReceiveStores(string data, int floor) {
+		string[] storesStr = data.Split(";;");
 
-		switch (webRequest.result) {
-			case UnityWebRequest.Result.ConnectionError:
-				return webRequest.error;
-			case UnityWebRequest.Result.DataProcessingError:
-				Debug.LogError(": Error: " + webRequest.error);
-				return webRequest.error;
-			case UnityWebRequest.Result.ProtocolError:
-				Debug.LogError(": HTTP Error: " + webRequest.error);
-				return webRequest.error;
-			case UnityWebRequest.Result.Success:
-				Debug.Log(":\nReceived: " + webRequest.downloadHandler.text);
-				return webRequest.downloadHandler.text;
+		for (int i = 0; i < storesStr.Length; i++) {
+			Store store = JsonUtility.FromJson<Store>(storesStr[i]);
+			GameObject shopObj = floors[floor].transform.GetChild(i).gameObject;
+			shopObj.GetComponent<Shop>().storeModel = store;
+			shopObj.GetComponent<Shop>().LoadModels();
 		}
-		return webRequest.downloadHandler.text;
-	}
-
-	async void getAllProducts() {
-		var s = gameObject.name;
-		var products = await FetchData("http://localhost:5000/product/getStoreProducts/2");
-
-		Debug.Log(products);
-
-		foreach (var product in products) {
-			var textStream = new MemoryStream(Encoding.UTF8.GetBytes(s.ToString()));
-			var loadedObj = new OBJLoader().Load(textStream);
-
-			loadedObj.transform.SetParent(gameObject.transform);
-			loadedObj.AddComponent<MeshRenderer>();
-			loadedObj.AddComponent<MeshCollider>();
-		}
-	}
-
-	async void addProduct() {
-
-		var s = await FetchData("http://localhost:5000/product/vendor");
-
-		Debug.Log(s);
-		//create stream and load
-		var textStream = new MemoryStream(Encoding.UTF8.GetBytes(s.ToString()));
-		var loadedObj = new OBJLoader().Load(textStream);
-
-		loadedObj.transform.SetParent(gameObject.transform);
-		loadedObj.AddComponent<MeshRenderer>();
-		loadedObj.AddComponent<MeshCollider>();
-
 	}
 }

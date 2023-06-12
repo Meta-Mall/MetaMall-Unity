@@ -1,33 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 
-public class ProductModel : MonoBehaviour
-{
-    int price;
-    int store;
-    string description;
-    string orderLink;
-    string modelLink;
+[Serializable]
+public class ProductModel {
+	public string name;
+	public string description;
+	public int price;
+	public int store;
+	public string order_link;
+	public string model_id;
+	public position_struct position;
+}
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void uploadModel() {
-        try {
-
-        }
-        catch (System.Exception) {
-            throw;
-        }
-    }
+public struct position_struct {
+	public float x;
+	public float y;
+	public float z;
 }
