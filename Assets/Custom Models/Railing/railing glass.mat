@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: glass
+  m_Name: railing glass
   m_Shader: {fileID: -6465566751694194690, guid: 1a207e3bee00db44b940e6f362a8e148,
     type: 3}
   m_Parent: {fileID: 0}
