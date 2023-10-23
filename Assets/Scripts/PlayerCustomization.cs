@@ -58,6 +58,8 @@ public class PlayerCustomization : MonoBehaviour {
 
 	public void ChooseCharacter() {
 		transform.SetLocalPositionAndRotation(spawnLocation, Quaternion.identity);
+        Physics.SyncTransforms();
+
 		UIManager.Instance.HideCharacterCustomization();
 		UIManager.Instance.ShowHUD();
 		PlayerFollowCamera.enabled = true;
