@@ -84,6 +84,8 @@ public class IsViewable : MonoBehaviour, ILookReceiver {
 
 		Vector3 camPosition = gameObject.transform.position + new Vector3(2f, 0, 0);
 		viewableCam.transform.position = Vector3.Lerp(viewableCam.transform.position, camPosition, 2f);
+
+		UIManager.Instance.ShowProductUI(gameObject.GetComponent<ProductManager>());
 	}
 
 	void DisableViewMode() {
@@ -97,6 +99,8 @@ public class IsViewable : MonoBehaviour, ILookReceiver {
 
 		playerCam.GetComponent<CinemachineVirtualCamera>().enabled = true;
 		viewableCam.GetComponent<CinemachineVirtualCamera>().enabled = false;
+
+		UIManager.Instance.HideProductUI();
 	}
 
 	public void LookingAt() { isLookedAt = true; }

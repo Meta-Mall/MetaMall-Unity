@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour {
@@ -28,6 +29,10 @@ public class UIManager : MonoBehaviour {
     public float minimapHeight = 10f;
 
 
+    //Product UI
+    ProductManager OpenedProduct = null;
+
+
     [DllImport("__Internal")]
     private static extern void EmitJSEvent(string eventName, string arg1, string arg2, string arg3);
 
@@ -47,10 +52,25 @@ public class UIManager : MonoBehaviour {
     public void ShowHUD() { HUD.SetActive(true); }
 
     public void ShowCharacterCustomization() { CharacterCustomizeHUD.SetActive(true); }
-
     public void HideCharacterCustomization() { CharacterCustomizeHUD.SetActive(false); }
 
-    public void GetCursorInfo() {
+	public void ShowProductUI(ProductManager product) {
+        ProductHUD.SetActive(true);
+        OpenedProduct = product;
+		Transform hud = ProductHUD.transform.GetChild(0);
+		hud.transform.Find("Title").GetComponent<TextMeshProUGUI>().text = OpenedProduct.product.name;
+		hud.transform.Find("Price").GetComponent<TextMeshProUGUI>().text = "Price: " + OpenedProduct.product.price.ToString();
+		hud.transform.Find("Scroll View/Viewport/Content/DescriptionText").GetComponent<TextMeshProUGUI>().text = OpenedProduct.product.description;
+	}
+
+	public void HideProductUI() {
+        ProductHUD.SetActive(false);
+		OpenedProduct = null;
+	}
+
+	public void OpenProductLink() { OpenedProduct.OpenProductLink(); }
+
+	public void GetCursorInfo() {
         EmitJSEvent("GetCursorInfo_Returned", Cursor.lockState.ToString(), null, null);
     }
 }
