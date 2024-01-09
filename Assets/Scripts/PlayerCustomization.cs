@@ -36,8 +36,7 @@ public class PlayerCustomization : MonoBehaviour {
 		UIManager.Instance.ShowCharacterCustomization();
 		transform.SetLocalPositionAndRotation(playerCustomizeLocation, Quaternion.Euler(playerCustomizeRotation));
 
-		Cursor.visible = true;
-		Cursor.lockState = CursorLockMode.Confined;
+		UIManager.Instance.UnlockCursor();
 	}
 
 	void Update() {
@@ -48,8 +47,7 @@ public class PlayerCustomization : MonoBehaviour {
 			Selected = (Selected + characters.Length - 1) % characters.Length;
 		}
 
-		Cursor.visible = true;
-		Cursor.lockState = CursorLockMode.Confined;
+		UIManager.Instance.UnlockCursor();
 	}
 
 	public void SelectCharacterByIndex(int i) {
@@ -66,8 +64,7 @@ public class PlayerCustomization : MonoBehaviour {
 		CustomizationCamera.enabled = false;
 		input.enabled = true;
 
-		Cursor.visible = false;
-		Cursor.lockState = CursorLockMode.Locked;
+		UIManager.Instance.LockCursor();
 		enabled = false;
 	}
 }

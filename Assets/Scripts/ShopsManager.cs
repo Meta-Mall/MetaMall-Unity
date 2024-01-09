@@ -1,17 +1,8 @@
-using Dummiesman;
-using System.IO;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Networking;
 
 public class ShopsManager : MonoBehaviour {
 
 	public GameObject[] floors;
-
-	[DllImport("__Internal")]
-	private static extern void EmitJSEvent(string eventName, string arg1, string arg2, string arg3);
 
 	struct productModel {
 		string name;
@@ -24,9 +15,7 @@ public class ShopsManager : MonoBehaviour {
 	}
 
 	void Start() {
-#if UNITY_WEBGL == true && UNITY_EDITOR == false
-		EmitJSEvent("RequestStores", null, null, null);
-#endif
+		Javascript.Emit("RequestStores", null, null, null);
 	}
 
 	public void ReceiveFloor0(string data) {

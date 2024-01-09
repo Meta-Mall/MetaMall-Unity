@@ -71,9 +71,7 @@ public class IsViewable : MonoBehaviour, ILookReceiver {
 	void EnableViewMode() {
 
 		viewMode = true;
-		
-		Cursor.visible = true;
-		Cursor.lockState = CursorLockMode.None;
+		UIManager.Instance.UnlockCursor();
 
 		playerCam.GetComponent<CinemachineVirtualCamera>().enabled = false;
 		player.GetComponent<PlayerInput>().enabled = false;
@@ -91,10 +89,8 @@ public class IsViewable : MonoBehaviour, ILookReceiver {
 	void DisableViewMode() {
 
 		viewMode = false;
+		UIManager.Instance.LockCursor();
 		
-		Cursor.visible = false;
-		Cursor.lockState = CursorLockMode.Locked;
-
 		player.GetComponent<PlayerInput>().enabled = true;
 
 		playerCam.GetComponent<CinemachineVirtualCamera>().enabled = true;

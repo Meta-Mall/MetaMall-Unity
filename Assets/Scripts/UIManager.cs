@@ -1,6 +1,4 @@
-using System.Runtime.InteropServices;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour {
@@ -28,13 +26,8 @@ public class UIManager : MonoBehaviour {
     public bool minimapRotate = true;
     public float minimapHeight = 10f;
 
-
     //Product UI
     ProductManager OpenedProduct = null;
-
-
-    [DllImport("__Internal")]
-    private static extern void EmitJSEvent(string eventName, string arg1, string arg2, string arg3);
 
 
     public void ShowTooltip(string text, GameObject showAbove) {
@@ -70,7 +63,20 @@ public class UIManager : MonoBehaviour {
 
 	public void OpenProductLink() { OpenedProduct.OpenProductLink(); }
 
+    public void LockCursor() {
+		Cursor.visible = false;
+		Cursor.lockState = CursorLockMode.Locked;
+        Javascript.Emit("CursorMode", Cursor.lockState.ToString(), null, null);
+	}
+
+	public void UnlockCursor() {
+		Cursor.visible = true;
+		Cursor.lockState = CursorLockMode.None;
+        Javascript.Emit("CursorMode", Cursor.lockState.ToString(), null, null);
+	}
+
 	public void GetCursorInfo() {
-        EmitJSEvent("GetCursorInfo_Returned", Cursor.lockState.ToString(), null, null);
+        Javascript.Emit("GetCursorInfo_Returned", Cursor.lockState.ToString(), null, null);
     }
+
 }

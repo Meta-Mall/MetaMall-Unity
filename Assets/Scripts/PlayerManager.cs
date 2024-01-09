@@ -5,16 +5,12 @@ using System.Runtime.InteropServices;
 
 public class PlayerManager : MonoBehaviour {
 
-	[DllImport("__Internal")]
-	private static extern void EmitJSEvent(string eventName, string arg1, string arg2, string arg3);
-	
 	struct loginInfo {
 		public string userJSON;
 		public string type;
 	}
 
 	public Sprite guestAvatar;
-	public GameObject HUD;
 	GameObject playerAvatar;
 	GameObject playerAlias;
 
@@ -35,14 +31,12 @@ public class PlayerManager : MonoBehaviour {
 	}
 
 	void Start() {
-		Transform playerHUD = HUD.transform.Find("PlayerAvatar");
+		Transform playerHUD = UIManager.Instance.HUD.transform.Find("PlayerAvatar");
 		playerAvatar = playerHUD.Find("PlayerMask").GetChild(0).gameObject;
 		playerAlias = playerHUD.Find("PlayerAlias").gameObject;
 		User = new Customer();
 
-#if UNITY_WEBGL == true && UNITY_EDITOR == false
-		EmitJSEvent("PrintSomething", "hello", "lallu", null);
-#endif
+		Javascript.Emit("PrintSomething", "hello", "lallu", null);
 	}
 
 

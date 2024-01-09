@@ -21,7 +21,7 @@ public class Server : MonoBehaviour {
 
     void Start() {
         //StartCoroutine(Upload());
-        getModel();
+        //getModel();
     }
 
     void Update() {
