@@ -34,7 +34,9 @@ namespace Edgegap.Editor
         private bool _isContainerRegistryReady;
         private Sprite _appIconSpriteObj;
         private string _appIconBase64Str;
+ #pragma warning disable CS0414 // MIRROR CHANGE: hide unused warning
         private ApiEnvironment _apiEnvironment; // TODO: Swap out hard-coding with UI element?
+ #pragma warning restore CS0414 // END MIRROR CHANGE
         private GetRegistryCredentialsResult _credentials;
         private static readonly Regex _appNameAllowedCharsRegex = new Regex(@"^[a-zA-Z0-9_\-+\.]*$"); // MIRROR CHANGE: 'new()' not supported in Unity 2020
         private GetCreateAppResult _loadedApp;
@@ -125,17 +127,21 @@ namespace Edgegap.Editor
         #region Unity Funcs
         protected void OnEnable()
         {
+#if UNITY_2021_3_OR_NEWER // MIRROR CHANGE: only load stylesheet in supported Unity versions, otherwise it shows errors in U2020
             // Set root VisualElement and style: V2 still uses EdgegapWindow.[uxml|uss]
             // BEGIN MIRROR CHANGE
             _visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>($"{StylesheetPath}/EdgegapWindow.uxml");
             StyleSheet styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>($"{StylesheetPath}/EdgegapWindow.uss");
             // END MIRROR CHANGE
             rootVisualElement.styleSheets.Add(styleSheet);
+#endif
         }
 
+#pragma warning disable CS1998 // MIRROR CHANGE: disable async warning in U2020
         public async void CreateGUI()
+#pragma warning restore CS1998 // END MIRROR CHANGE
         {
-            // the UI requires 'GroupBox', which is not available in Unity 2019/2020.
+            // MIRROR CHANGE: the UI requires 'GroupBox', which is not available in Unity 2019/2020.
             // showing it will break all of Unity's Editor UIs, not just this one.
             // instead, show a warning that the Edgegap plugin only works on Unity 2021+
 #if !UNITY_2021_3_OR_NEWER
@@ -157,9 +163,15 @@ namespace Edgegap.Editor
         /// <summary>The user closed the window. Save the data.</summary>
         protected void OnDisable()
         {
+#if UNITY_2021_3_OR_NEWER // MIRROR CHANGE: only load stylesheet in supported Unity versions, otherwise it shows errors in U2020
+            // MIRROR CHANGE: sometimes this is called without having been registered, throwing NRE
+            if (_debugBtn == null) return;
+            // END MIRROR CHANGE
+
             unregisterClickEvents();
             unregisterFieldCallbacks();
             SyncObjectWithForm();
+#endif
         }
         #endregion // Unity Funcs
 
@@ -263,6 +275,8 @@ namespace Edgegap.Editor
         /// </summary>
         private void assertVisualElementKeys()
         {
+            // MIRROR CHANGE: this doesn't compile in Unity 2019
+            /*
             try
             {
                 Assert.IsTrue(_apiTokenInput is { name: EdgegapWindowMetadata.API_TOKEN_TXT_ID },
@@ -375,6 +389,7 @@ namespace Edgegap.Editor
                 Debug.LogError(e.Message);
                 _postAuthContainer.SetEnabled(false);
             }
+            */ // END MIRROR CHANGE
         }
 
         /// <summary>
@@ -1109,6 +1124,8 @@ namespace Edgegap.Editor
 
         private void openDocumentationWebsite()
         {
+            // MIRROR CHANGE
+            /*
             string documentationUrl = _apiEnvironment.GetDocumentationUrl();
 
             if (!string.IsNullOrEmpty(documentationUrl))
@@ -1119,6 +1136,11 @@ namespace Edgegap.Editor
                 Debug.LogWarning($"Could not open documentation for api environment " +
                     $"{apiEnvName}: No documentation URL.");
             }
+            */
+
+            // link to our step by step guide
+            Application.OpenURL("https://mirror-networking.gitbook.io/docs/hosting/edgegap-hosting-plugin-guide");
+            // END MIRROR CHANGE
         }
 
         /// <summary>
@@ -1303,7 +1325,10 @@ namespace Edgegap.Editor
             Debug.Log("(!) Check your deployments here: https://app.edgegap.com/deployment-management/deployments/list");
 
             // Shake "need more servers" btn on 403
-            bool reachedNumDeploymentsHardcap = result is { IsResultCode403: true };
+            // MIRROR CHANGE: use old C# syntax that is supported in Unity 2019
+            // bool reachedNumDeploymentsHardcap = result is { IsResultCode403: true };
+            bool reachedNumDeploymentsHardcap = result != null && result.IsResultCode403;
+            // END MIRROR CHANGE
             if (reachedNumDeploymentsHardcap)
                 shakeNeedMoreGameServersBtn();
         }

@@ -3,8 +3,8 @@ guid: 62d51b44b8414c9f968ca607ccb06b7e
 timeCreated: 1701522748
 AssetOrigin:
   serializedVersion: 1
-  productId: 212563
-  packageName: Edgegap Game Server & Hosting
-  packageVersion: 2.0
+  productId: 129321
+  packageName: Mirror
+  packageVersion: 86.13.4
   assetPath: Assets/Edgegap/Editor/Api/Models/DeploymentPortsData.cs
-  uploadId: 630915
+  uploadId: 634249
