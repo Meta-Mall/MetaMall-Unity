@@ -47,7 +47,7 @@ public class PlayerCustomization : MonoBehaviour {
 			Selected = (Selected + characters.Length - 1) % characters.Length;
 		}
 
-		UIManager.Instance.UnlockCursor();
+		//UIManager.Instance.UnlockCursor();
 	}
 
 	public void SelectCharacterByIndex(int i) {

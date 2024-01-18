@@ -137,7 +137,8 @@ PlayerSettings:
   vulkanEnableCommandBufferRecycling: 1
   loadStoreDebugModeEnabled: 0
   bundleVersion: 0.1a
-  preloadedAssets: []
+  preloadedAssets:
+  - {fileID: 11400000, guid: 9e7be553448fa2546aea5752021cbcf7, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -727,14 +728,16 @@ PlayerSettings:
   webGLCloseOnQuit: 0
   scriptingDefineSymbols:
     Android: STARTER_ASSETS_PACKAGES_CHECKED
-    Standalone: STARTER_ASSETS_PACKAGES_CHECKED;MIRROR;MIRROR_70_OR_NEWER;MIRROR_71_OR_NEWER;MIRROR_73_OR_NEWER;MIRROR_78_OR_NEWER;MIRROR_79_OR_NEWER;MIRROR_81_OR_NEWER;MIRROR_82_OR_NEWER;MIRROR_83_OR_NEWER;MIRROR_84_OR_NEWER;MIRROR_85_OR_NEWER;MIRROR_86_OR_NEWER
+    Server: STARTER_ASSETS_PACKAGES_CHECKED
+    Standalone: MIRROR;MIRROR_70_OR_NEWER;MIRROR_71_OR_NEWER;MIRROR_73_OR_NEWER;MIRROR_78_OR_NEWER;MIRROR_79_OR_NEWER;MIRROR_81_OR_NEWER;MIRROR_82_OR_NEWER;MIRROR_83_OR_NEWER;MIRROR_84_OR_NEWER;MIRROR_85_OR_NEWER;MIRROR_86_OR_NEWER;STARTER_ASSETS_PACKAGES_CHECKED
     WebGL: STARTER_ASSETS_PACKAGES_CHECKED;MIRROR;MIRROR_70_OR_NEWER;MIRROR_71_OR_NEWER;MIRROR_73_OR_NEWER;MIRROR_78_OR_NEWER;MIRROR_79_OR_NEWER;MIRROR_81_OR_NEWER;MIRROR_82_OR_NEWER;MIRROR_83_OR_NEWER;MIRROR_84_OR_NEWER;MIRROR_85_OR_NEWER;MIRROR_86_OR_NEWER
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}
   il2cppCompilerConfiguration:
     WebGL: 0
-  il2cppCodeGeneration: {}
+  il2cppCodeGeneration:
+    WebGL: 1
   il2cppStacktraceInformation: {}
   managedStrippingLevel:
     EmbeddedLinux: 1
@@ -745,7 +748,7 @@ PlayerSettings:
     PS5: 1
     QNX: 1
     Stadia: 1
-    WebGL: 1
+    WebGL: 3
     Windows Store Apps: 1
     XboxOne: 1
     iPhone: 1
