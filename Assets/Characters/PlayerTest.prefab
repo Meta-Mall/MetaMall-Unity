@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 2969662662379024805}
   - component: {fileID: 2706782475697344207}
   - component: {fileID: 4930098037450243316}
-  - component: {fileID: 4360511760247374047}
   - component: {fileID: 9119471771210579010}
+  - component: {fileID: -6900101220922296314}
   m_Layer: 0
   m_Name: PlayerTest
   m_TagString: Untagged
@@ -130,21 +130,6 @@ MonoBehaviour:
   serverOnly: 0
   visible: 0
   hasSpawned: 0
---- !u!114 &4360511760247374047
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5513315974910945005}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60ce061b4211ec441b00115515e55d19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
 --- !u!114 &9119471771210579010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,3 +164,18 @@ MonoBehaviour:
   positionSensitivity: 0.01
   rotationSensitivity: 0.01
   scaleSensitivity: 0.01
+--- !u!114 &-6900101220922296314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5513315974910945005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60ce061b4211ec441b00115515e55d19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
